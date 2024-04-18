@@ -1,0 +1,23 @@
+# product service
+spring:
+    application:
+        name: product-service
+    data:
+        mongodb:
+        uri: mongodb://devuser:password@mongodb:27017/productdb
+    profiles:
+        active: docker
+
+# mongodb container
+    mongodb:
+        image: mongo:4.0.4
+        container_name: mongodb
+        ports:
+        - "27017:27017"
+        volumes:
+        - mongodb_data:/data/db
+        environment:
+        - MONGO_INITDB_ROOT_USERNAME=devuser
+        - MONGO_INITDB_ROOT_PASSWORD=password
+        - MONGO_INITDB_DATABASE=productdb
+        restart: always
