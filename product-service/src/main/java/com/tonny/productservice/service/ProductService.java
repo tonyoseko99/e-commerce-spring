@@ -45,6 +45,7 @@ public class ProductService {
         product.setName(productRequestDto.getName());
         product.setDescription(productRequestDto.getDescription());
         product.setPrice(productRequestDto.getPrice());
+        product.setQuantity(productRequestDto.getQuantity());
         productRepository.save(product);
         log.info("Product updated. Product name: {}", product.getName());
         return mapToProductResponse(product);
@@ -64,6 +65,7 @@ public class ProductService {
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())
+                .quantity(product.getQuantity())
                 .build();
     }
 
@@ -72,6 +74,7 @@ public class ProductService {
                 .name(productRequestDto.getName())
                 .description(productRequestDto.getDescription())
                 .price(productRequestDto.getPrice())
+                .quantity(productRequestDto.getQuantity())
                 .build();
     }
 }
