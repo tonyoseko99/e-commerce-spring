@@ -1,11 +1,12 @@
 package com.tonny.productservice.controller;
 
-import com.tonny.productservice.dto.ProductRequest;
-import com.tonny.productservice.dto.ProductResponse;
+import com.tonny.productservice.dto.ProductRequestDto;
+import com.tonny.productservice.dto.ProductResponseDto;
 import com.tonny.productservice.service.ProductService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,13 +23,32 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody ProductRequest productRequest){
+    public void createProduct(@RequestBody ProductRequestDto productRequest){
         productService.createProduct(productRequest);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponse> getAllProducts(){
+    public List<ProductResponseDto> getAllProducts(){
         return productService.getAllProducts();
     }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductResponseDto getProductById(@PathVariable Long id){
+        return productService.getProductById(id);
+    }
+
+    @PostMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductResponseDto updateProduct(@PathVariable Long id, @RequestBody ProductRequestDto productRequest) {
+        return productService.updateProduct(id, productRequest);
+    }
+
+    @PostMapping("/{id}/delete")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
+    }
+
 }
